@@ -1,0 +1,84 @@
+.main__bg{
+  background-color: #fcfcfc;
+}
+
+
+.bg__gray{
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef, #f8f9fa);
+}
+
+.bg__light{
+  background: linear-gradient(135deg, #f8f9fa, #f4fafe, #f8f9fa);
+}
+
+.bg__white{
+  background: linear-gradient(135deg, #dcdcdc2d, #dcdcdc29, #dcdcdc2d);
+}
+.bg__transparent{
+  background-color: rgba(218, 218, 218, 0.425);
+  backdrop-filter: blur(2px);
+}
+
+.bg__transparent__gradient{
+  backdrop-filter: blur(2px);
+  background: linear-gradient(135deg, #f6f6f62b, #f4fafe96, #f8f9fa72);
+}
+
+.bg__img__dark {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  &::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.205); /* dark overlay */
+    z-index: 1;
+  }
+  .content{
+    z-index: 5;
+    text-shadow: 1px 1px 20px rgb(45, 45, 45);
+  }
+}
+
+.border__white{
+  border-color: rgb(228, 228, 228) !important;
+}
+
+.bg__trans__blur{
+  background-color: rgba(87, 87, 87, 0.336);
+  backdrop-filter: blur(20px);
+}
+
+.bg__dark__trans{
+  background-color: rgba(37, 37, 37, 0.312);
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.bg__blue{
+  background-color: #3774f3;
+}
+
+.bg__success {
+  background: linear-gradient(
+    90deg,
+    rgba(16, 221, 9, 0) 0%,
+    rgba(16, 221, 9, 0.462) 25%,
+    rgba(16, 221, 9, 0.881) 50%,
+    rgba(16, 221, 9, 0.462) 75%,
+    rgba(16, 221, 9, 0) 100%
+  );
+}
+
+
+.bg__blue__grad{
+  background: linear-gradient(90deg,#10dd0900, #3772f34a, #3772f3eb, #3772f34a,#10dd0900);
+}

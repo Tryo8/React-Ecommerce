@@ -1,0 +1,8 @@
+node_modules
+.env
+React-Ecommerce/node_modules
+ECommerce-react/node_modules
+React-Ecommerce/.env
+ECommerce-react/.env
+dist
+build
