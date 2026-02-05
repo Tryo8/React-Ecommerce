@@ -25,12 +25,12 @@ router.post('/', async (req, res) => {
     if (session.payment_status === "paid") {
     const sql = `
       INSERT INTO transactions 
-      (user_id, stripe_session_id, stripe_payment_intent, amount, currency, payment_status, payment_method)
+      (user_uuid, stripe_session_id, stripe_payment_intent, amount, currency, payment_status, payment_method)
       VALUES (?, ?, ?, ?, ?, ?, ?)
     `;
 
     db.query(sql, [
-      session.metadata.user_id,
+      session.metadata.user_uuid,
       session.id,
       paymentIntent.id,
       session.amount_total / 100,

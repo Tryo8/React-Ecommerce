@@ -12,7 +12,7 @@ const stripe = new Stripe(STRIPE_KEY);
 
 router.post('/',verifyJWT, async(req, res) => {
     const { products } = req.body;
-
+      console.log("🔹 req.user:", req.user);
     const lineItems = products.map((p) => ({
         price_data:{
             currency:"usd",
@@ -31,7 +31,7 @@ router.post('/',verifyJWT, async(req, res) => {
         success_url:"http://localhost:5173/success-payment?session_id={CHECKOUT_SESSION_ID}",
         cancel_url:"http://localhost:5173/cancel-payment",
         metadata: {
-            user_id: req.user.id
+            user_uuid: req.user.user_uuid
         }
     })
    res.json({ url: session.url }); 

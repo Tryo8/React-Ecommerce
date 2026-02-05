@@ -15,6 +15,7 @@ import githubAuthRoute from "./routes/githubAuth.js";
 import geoip from "geoip-lite";
 import checkout from './routes/checkOut.js';
 import verfiySession from './routes/verifySession.js';
+import payments from './controller/paymentsController.js';
 import { getUserLocation } from './model/getUserLocation.js';
 import cron from "node-cron";
 import { deleteOldCompletedOrders } from './model/cleanupOrders.js';
@@ -48,6 +49,7 @@ app.use('/products', productsController);
 app.use('/user', user);
 app.use('/create-checkout-session',checkout ) 
 app.use('/verify-payment', verfiySession);
+app.use('/payments', payments);
 app.use(getUserLocation)
 
 app.get("/api/geo", (req, res) => {

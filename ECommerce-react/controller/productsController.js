@@ -35,6 +35,7 @@ router.get("/get-products-by-category/:category", (req, res) => {
     if(!category) return res.status(400).json({message: 'Category is required'});
 
     const sql = ` SELECT * FROM products WHERE category = ?`;
+    
     db.query(sql,[category], (err, result) => {
         if(err) {
             res.status(500).json({message:'Error fetching Category', err});

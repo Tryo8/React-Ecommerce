@@ -223,11 +223,10 @@ router.get("/get-location",verifyJWT, (req, res) => {
       res.status(500).json({message:'Error fetching user', err});
     };
     if (result.length === 0) {
-      return res.status(404).json({ message: "location not found" });
+      return res.status(200).json(null);
     }
-
     return res.status(200).json(result[0]);
-  });
+  }); 
 });
 
 
