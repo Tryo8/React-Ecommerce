@@ -53,7 +53,13 @@ export function Products () {
                     <div  key={product?.product_id} 
                     style={{height:'22rem', perspective:" 1000px"}} className="col-6 col-md-5 col-sm-6 col-lg-3 p-1 rounded-4" >
                         <div onClick={() => navigate(`/user/product/${product?.product_uuid}`)} className="card shadow-sm bg__light card__product border-0 rounded-4 h-100">
-                            <img onError={(e) => {e.target.onerror = null; e.target.src = img}} height={160} width={160} className="card-img-top rounded-top-4 object-fit-cover" src={product?.product_img || img} alt="product display image"/>
+                            <div className="hover-image-wrapper">
+                                <img 
+                                onError={(e) => {e.target.onerror = null; e.target.src = img}} 
+                                height={160} width={160} 
+                                className="card-img-top rounded-top-4 object-fit-cover hover-image" 
+                                src={product?.product_img || img} alt="product display image"/>
+                            </div>
                             <div className="card-body p-3">
                                 <h5 className="text-truncate">{ product?.name || "N/A"}</h5>
                                 <p style={{height:'3rem'}} className="mb-0 truncate-2 text-secondary txt__s">{ product?.description || "N.A"}</p>

@@ -5,7 +5,7 @@
     color: white;
     border-radius: 2rem;
     transition: all 0.2s ease-out;
-    padding: 6px 15px;
+ padding: 0.45rem 1.1rem;
     font-size: 15px;
     border: 1px solid rgb(255, 255, 255);
     outline: 2px solid transparent;
@@ -27,7 +27,7 @@
     color: white;
     border-radius: 2rem;
     transition: all 0.2s ease-out;
-    padding: 6px 15px;
+ padding: 0.45rem 1.1rem;
     font-size: 15px;
     border: 1px solid rgb(247, 247, 247);
     outline: 2px solid transparent;
@@ -60,7 +60,7 @@
     color: white;
     border-radius: 2rem;
     transition: all 0.2s ease-out;
-    padding: 6px 15px;
+ padding: 0.45rem 1.1rem;
     font-size: 15px;
     border: 1px solid rgb(255, 255, 255);
     .i__appear{
@@ -121,45 +121,37 @@
 
 
 .btn__blue__full{
-  background-color: #3774f3;
-  color: white;
-  border-radius: 2rem;
-  transition: all 0.2s ease-out;
-  padding: 6px 15px;
-  font-size: 15px;
-  border: 1px solid rgb(255, 255, 255);
-  .i__appear{
-      display: none;
-  }
-  &:hover{
-      background-color: hsl(221, 95%, 58%);
-      color: #ffffff;
-      border: 1px solid #3774f3;
-      .i__appear{
-          display: inline;
-      }
-  }
-}
-
-
-.btn__red{
-  background-color: #f33737;
-  color: white;
-  border-radius: 2rem;
-  transition: all 0.2s ease-out;
-  padding: 6px 15px;
-  font-size: 15px;
-  border: 1px solid rgb(255, 255, 255);
-  outline: 2px solid transparent;
+    background-color: #3774f3;
+    color: white;
+    border-radius: 2rem;
+    transition: all 0.2s ease-out;
+ padding: 0.45rem 1.1rem;
+    font-size: 15px;
+    border: 1px solid rgb(255, 255, 255);
     .i__appear{
         display: none;
     }
     &:hover{
-        outline: 2px solid #f33737;
-        filter: brightness(1.08);
-        .i__appear{
-            display: inline;
-        }
+        filter: brightness(1.1);
+        color: #ffffff;
+        border: 1px solid #ffffff;
+    }
+}
+
+
+.btn__red{
+    background-color: #f33737;
+    color: white;
+    border-radius: 2rem;
+    transition: all 0.2s ease-out;
+    padding: 0.45rem 1.1rem;
+    font-size: 15px;
+    border: 1px solid rgb(255, 47, 47);
+    outline: 2px solid transparent;
+    &:hover{
+        background-color:#f44343;
+        color: #ffffff;
+
     }
 }
 
@@ -168,7 +160,7 @@
     color: white;
     border-radius: 2rem;
     transition: all 0.2s ease-out;
-    padding: 6px 15px;
+ padding: 0.45rem 1.1rem;
     font-size: 15px;
     border: 1px solid rgb(255, 255, 255);
             outline: 2px solid transparent;
@@ -191,7 +183,7 @@
     color: #3774f3;
     border-radius: 2rem;
     transition: all 0.2s ease-out;
-    padding: 6px 15px;
+ padding: 0.45rem 1.1rem;
     font-size: 15px;
     border: 1px solid #3774f3;
     outline: 2px solid transparent;
@@ -266,7 +258,7 @@
     color: #353535;
     border-radius: 2rem;
     transition: all 0.2s ease-out;
-    padding: 6px 15px;
+ padding: 0.45rem 1.1rem;
     font-size: 15px;
     border: 1px solid rgb(255, 255, 255);
     .i__appear{
@@ -311,7 +303,7 @@
     color: none;
     border-radius: 2rem;
     transition: all 0.2s ease-out;
-    padding: 6px 15px;
+ padding: 0.45rem 1.1rem;
     font-size: 15px;
     border:none;
     color: #4e4e4e;

@@ -9,11 +9,13 @@ import { useLogout } from "../core/hooks/useLogout";
 import PopoverSm from "../uicomponents/PopoverSm";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Avatar from "../uicomponents/Avatar";
+import { decode } from "@msgpack/msgpack";
 import { useNavigate } from "react-router-dom";
 import Map from "../components/Map";
 import axios from "axios";
 import useAxiosPrivate from "../core/hooks/useAxiosPrivate";
 import { Link } from "react-router-dom";
+import cloundImg from '../assets/images/cloud-connection.png'
 function CurrentUserProfile () {
 
     const { user, wishList } = useContext(UserContext);
@@ -27,6 +29,7 @@ function CurrentUserProfile () {
     const [openChangeLocation, setOpenChangeLocation] = useState(false);
     const [updateSuccess, setUpdateSuccess] = useState(false);
     const axiosPrivate = useAxiosPrivate();
+    const [ transactions, setTransactions] = useState([]);
     const logout = useLogout();
     const [address, setAddress] = useState({});
      const [userLocation, setUserLocation] = useState(null);
@@ -120,6 +123,21 @@ function CurrentUserProfile () {
         
     }
     
+    const { data, refetch} = useQuery({
+        queryKey: ["transactions"],
+        queryFn: async () => 
+        {
+            const res = await axiosPrivate.get(`/payments/get-payments`,
+            {
+                responseType: "arraybuffer",
+            });
+            console.log(res.data)
+            const transactions = decode(new Uint8Array(res.data));
+            setTransactions(transactions)
+            return transactions;
+        },
+    });
+
 
     useEffect(() => {
         miAxios.get("/api/geo").then(res => {
@@ -185,16 +203,34 @@ function CurrentUserProfile () {
     const getLocation = useQuery({
         queryKey: ["user-location"],
         queryFn: async () => {
-        const res = await axiosPrivate.get("/user/get-location");
-            return res.data
+        const res = await axiosPrivate.get("/user/get-location"); 
+            if (res.data == null || undefined) {
+                throw new Error("Location not found");
+            }
+
+            return res.data;
         },
     });
+
+    const removeTransaction = useMutation({
+        mutationFn: async (id) => {
+            const res = await axiosPrivate.delete(`/payments/delete-transaction/${id}`);
+            return res.data;
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries(["transactions"]);
+            toast.success("Removed Successfully");
+        },
+        onError: (err) => {
+            errorToast(err, "Failed to remove from transactions, try again later")
+        }
+    });
+
     useEffect(() => {
         if (getLocation.data) {
             setUserLocation(getLocation.data);
         }
     }, [getLocation.data]);
-
 
     return(
         <div className="container my-4">
@@ -254,7 +290,7 @@ function CurrentUserProfile () {
                                 </li>
                                 <li>
                                     <button className="dropdown-item text-danger" 
-                                        popoverTarget="logout">
+                                         data-bs-toggle="modal" data-bs-target="#logoutModal">
                                         <i className="bi bi-power"></i> Logout
                                     </button>
                                 </li>
@@ -290,7 +326,7 @@ function CurrentUserProfile () {
                                 {userLocation?.road && <span><span className="text-dark-emphasis">Street: </span>{userLocation?.road}, </span>}
                             </p>
                         </div>
-                        <div className="p-3 rounded-4 border mt-3 water__hover__effect overflow-hidden position-relative">
+                        <div className="p-3 rounded-4 border mt-3 overflow-hidden position-relative">
                             <p className="mb-0"><span className="text-secondary">New Location: </span>
                                 {country && <span>{country}, </span>}
                                 {state && <span>{state}, </span>}
@@ -355,35 +391,72 @@ function CurrentUserProfile () {
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                          
-                            <div className="modal-body">
+                        <div className="modal-body overflow-scroll overflow-x-hidden p-0" style={{height:'18rem'}}>
+                            {
+                                transactions.length === 0 ? 
+                                <div className="p-2">
+                                    <div className="d-flex justify-content-center">
+                                        <img height={80} src={cloundImg} alt="img"/>
+                                    </div>
+                                    <div className="text-center p-2 text-secondary">There are no payments records</div>
+                                </div>:
                                 <div class="table-responsive">
-                                    <table class="table">
+                                    <table class="table table-striped table-hover">
                                         <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Role</th>
-                                            <th>Status</th>
-                                        </tr>
+                                            <tr>
+                                                <th className="text-start txt__sm fw-semibold text-dark"><i class="fa-solid fa-sack-dollar i__phone"></i> Total</th>
+                                                <th className="text-center txt__sm fw-semibold text-dark"><i class="fa-solid fa-coins i__phone"></i> Method</th>
+                                                <th className="text-center txt__sm fw-semibold text-dark"><i class="fa-regular fa-calendar i__phone"></i> Date</th>
+                                                <th className="text-center txt__sm fw-semibold text-dark"><i class="fa-solid fa-xmark"></i></th>
+                                            </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>John</td>
-                                            <td>john@email.com</td>
-                                            <td>Admin</td>
-                                            <td>Active</td>
-                                        </tr>
+                                            
+                                            {
+                                                transactions.map((t,index) => (
+                                                    <tr key={index}>
+            
+                                                        <td className="text-success txt__sm">${t?.amount || "N/A"}</td>
+                                                        <td className="text-center txt__sm">{t?.currency.toUpperCase() || "N/A"}/ {t?.payment_method || "N/A"}</td>
+                                                        <td className="text-end txt__sm text-truncate text-dark-emphasis txt__phone">
+                                                            {new Date(t?.created_at).toLocaleString()}
+                                                        </td>
+                                                        <td className="txt__xs text-center">
+                                                        <span className="  border p-2 rounded-circle">
+                                                            <i type="button" onClick={() => removeTransaction.mutate(t?.id)}  class="bi bi-trash3 text-danger"></i>
+                                                        </span>
+                                                    
+                                                        </td>
+                                                    
+                                                    </tr>
+                                                ))
+                                            }
+                                        
                                         </tbody>
                                     </table>
                                 </div>
+                            }
 
-                            </div>
-                            <div className="modal-footer rounded-4">
-                                <button type="button" className="btn__white" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" className="btn__blue__full" data-bs-dismiss="modal"> Save Changes</button>
-                            </div>
+                        </div>
+                        <div className="modal-footer rounded-4">
+                            <button type="button" className="btn__white" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="modal" tabIndex="-1" id="logoutModal" aria-labelledby="modal" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content rounded-4">
+                        <div className="modal-body text-center">
+                            <p className="fs-5 text-danger">
+                            <i class="bi bi-exclamation-circle"></i> Are Sure You Want Logout?</p>
+                            <small className="txt__sm text-muted">This action will sign you out.</small>
+                        </div>
+                        <div className="modal-footer rounded-4 pt-1">
+                            <button type="button" className="btn__white" data-bs-dismiss="modal">Cancel</button>
+                            <button onClick={() => logout.mutate()} data-bs-dismiss="modal" type="button" className="btn__red">Yes</button>    
+                        </div>
                     </div>
                 </div>
             </div>

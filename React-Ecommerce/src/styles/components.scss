@@ -8,6 +8,10 @@
     }
 }
 
+.popover__box{
+    width: min(25rem, 90vw);
+}
+
 .pop {
       z-index: 9999;
     animation: show 0.6s 1 ease forwards;
@@ -150,9 +154,8 @@ input::placeholder {
 }
 
 .dropdown{
-
+    z-index: 999;
     .dropdown-menu{
-   
         transition: opacity 0.25s ease,
         transform 0.25s ease,
         visibility 0.25s;
@@ -193,7 +196,16 @@ input::placeholder {
     transition:all  0.3s ease !important;
     cursor: pointer;
     transform-style: preserve-3d;
+    position: relative;
+    overflow: hidden;
+    img {
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
     &:hover{
+        img {
+            transform: scale(1.06);
+        }
         .text-secondary {
             color: #393939 !important;
         }
@@ -203,20 +215,7 @@ input::placeholder {
     }
 }
 
-.img__product{
-    cursor: pointer;
-    transition: all 0.4s;
-    .icon__view{
-        transition: all 0.3s;
-        opacity: 0;
-    }
-    &:hover{
-        .icon__view{
-            opacity: 1;
-        }
 
-    }
-}
 
 .dropdown-item-active{
     color: red;
@@ -326,4 +325,130 @@ input::placeholder {
 
 .form__sm{
     height: 1.8rem;
+}
+
+.dlivery__van{
+    width: 22rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.dlivery__van::before,
+.dlivery__van::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 80px;        
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.dlivery__van::before {
+    left: 0;
+    background: linear-gradient(to right, white, transparent);
+}
+
+.dlivery__van::after {
+    right: 0;
+    background: linear-gradient(to left, white, transparent);
+}
+.van{
+    position: relative;
+    object-fit: contain;
+    height: 140px;
+    width: 140px;
+    animation: hover_van 0.8s infinite linear;
+    z-index: 1;       
+}
+
+.wheel_1{
+    position: absolute;
+    object-fit: contain;
+
+    height: 20px;
+    width: 20px;
+
+    right: 16%;
+    top: 63%;
+    z-index: 1;
+    will-change: transform;
+    animation: spin 0.6s infinite linear;
+}
+
+.wheel_2{
+    position: absolute;
+    object-fit: contain;
+
+    height: 20px;
+    width: 20px;
+    z-index: 1;
+    left: 11.5%;
+    top:  63%;
+    will-change: transform;
+    animation: spin 0.6s infinite linear;
+}
+
+.pole{
+    position: absolute;
+    object-fit: contain;
+    height: 90px;
+    width: 90px;
+    left: 33%;
+    z-index: 4;
+    top:  19.8%;
+    animation: cloud 2s linear infinite;
+}
+
+
+.ground{
+    height: 0.08rem;
+    position: absolute;
+    width: 100%;
+    top:72%;
+    &::before{
+        content: '';
+        margin-right: 40px;
+    }
+    background-color: rgba(51, 51, 51, 0.382);
+}
+.cloud{
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    object-fit: contain;
+    top:3%;
+    opacity: 0.5;
+
+    animation: cloud 13s linear infinite;
+    filter: drop-shadow(0px 80px 6px #4545452b);
+
+}
+@keyframes spin {
+    to { rotate: 360deg; }
+}
+
+@keyframes hover_van {
+    0%{
+        transform: translateY(-1px);
+    }
+    70%{
+        transform: translateY(-2px);
+    }
+    100%{
+        transform: translateY(-1px);
+    }
+    
+}
+
+
+
+@keyframes cloud {
+    0% {
+        left: 0;
+    }
+    100% {
+        left:100% ;
+    }
+    
 }

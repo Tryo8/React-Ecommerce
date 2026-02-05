@@ -213,7 +213,7 @@ export function SignUp () {
     return(
         <div className="container-fluid">
             <div className="row min-vh-100">
-                <div className="col-12 col-md-6 col-lg-7 p-0 bg__img position-relative">
+                <div className="col-12 col-md-6 col-lg-7 p-0 bg__img position-relative d__phone">
                     <img className="h-100 w-100 img-fluid  position-relative bg__img" src={img} alt="background image of a mall"/>
                     <div style={{width:'28rem'}} className='card z-3 rounded-4 position-absolute position-absolute top-50 bg__transparent text-light start-50 translate-middle p-2'>
                         <div className='d-flex gap-2 align-items-center'>
@@ -234,7 +234,7 @@ export function SignUp () {
                         <form onSubmit={handleSubmit}>
                             <p className='text-center text-danger'>{errMsg}</p>
                             <div className="input-group">
-                                <span className="input-group-text bg-white">
+                                <span className="input-group-text bg-white border-end-0">
                                    <i className="bi bi-person"></i></span>
                                 <input 
                                 className={`form-control border-start-0 from-lg `} 
@@ -256,7 +256,7 @@ export function SignUp () {
 
 
                             <div className="input-group">
-                                <span className="input-group-text bg-white">
+                                <span className="input-group-text bg-white border-end-0">
                                     <i className="bi bi-envelope"></i></span>
                                 <input 
                                 className={`form-control border-start-0 from-lg `} 
@@ -273,7 +273,7 @@ export function SignUp () {
                             <div className='form-text text-danger mb-4'>{emailError}</div>
 
                             <div className="input-group">
-                                <span className="input-group-text bg-white">
+                                <span className="input-group-text bg-white border-end-0">
                                    <i className="bi bi-geo-alt"></i></span>
                                 <input 
                                 className={`form-control border-start-0 from-lg `} 
@@ -292,7 +292,7 @@ export function SignUp () {
     
                             <div className="input-group">
                         
-                                <span className="input-group-text bg-white">
+                                <span className="input-group-text bg-white border-end-0">
                                     <i className="bi bi-lock"></i>
                                 </span>
                                 <input 
@@ -308,7 +308,7 @@ export function SignUp () {
                                 aria-invalid={validEmail ? "false" : "true"}
                                 aria-describedby="uidnote"
                                 />
-                                 <span type="button" onClick={() => setToggleEye(prev => !prev)}  className="input-group-text bg-white">
+                                 <span type="button" onClick={() => setToggleEye(prev => !prev)}  className="input-group-text bg-white border-start-0">
                                     {
                                         toggleEye ? 
                                         <i className="bi bi-eye pe-3"></i>

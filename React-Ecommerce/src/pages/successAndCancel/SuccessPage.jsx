@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { UserContext } from '../../core/context/UserContext';
 import publicAxios from '../../core/axios/publicAxios';
 import useAxiosPrivate from '../../core/hooks/useAxiosPrivate';
+import { useRef } from 'react';
 
 
 function SuccessPage ({mainMessage = 'Operation Successful ', smallMessage = "The operation was successfull"}) {
@@ -18,8 +19,10 @@ function SuccessPage ({mainMessage = 'Operation Successful ', smallMessage = "Th
     const axiosPrivate = useAxiosPrivate()
     const navigate = useNavigate();
 
-
+    const hasVerified = useRef(false);
     useEffect(() => {
+        if (!sessionId || hasVerified.current) return;
+        hasVerified.current = true;
         const verifyPayment = async () => {
             if (!sessionId) return;
 

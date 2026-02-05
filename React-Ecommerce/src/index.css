@@ -145,9 +145,15 @@ h1 {
     width: 60px !important;
     font-size: 2rem !important;
   }
-
+  .i__phone{
+    display:  none !important;
+  }
   .main-footer{
     margin-bottom: 10px;
+  }
+
+  .txt__phone{
+    font-size: 0.7rem !important;
   }
  
   .w-50 {
@@ -172,6 +178,9 @@ h1 {
   }
   .btn__arrow__right{
     left: 90% !important;
+  }
+  .d__phone{
+    display: none !important;
   }
   .btn__arrow__left{
     right: 90% !important;

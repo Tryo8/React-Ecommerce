@@ -254,7 +254,7 @@ export function Product() {
                                     
                                     </>
                                     :
-                                    <button popoverTarget="notification"  className="btn__yellow ms-auto">Add to Cart<i className="bi bi-cart-plus"></i></button>
+                                    <button popoverTarget="notification"  className="btn__purple__grad ms-auto">Add to Cart<i className="bi bi-cart-plus"></i></button>
                                 } 
                             </div>
                         </div>

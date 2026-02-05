@@ -27,7 +27,7 @@ function App() {
           <a className="navbar-brand" href="#">Sticky bottom</a>
         </div>
       </nav> */}
-      <ReactQueryDevtools initialIsOpen={false} />
+
     </>
   )
 }

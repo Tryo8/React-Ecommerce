@@ -11,13 +11,15 @@ import { useLogout } from "../core/hooks/useLogout";
 import PopoverSm from "../uicomponents/PopoverSm";
 import logo from '../assets/shoponaire_noBg__sm.png';
 import Avatar from "../uicomponents/Avatar";
-import { getCartItemsQueryOptions } from "../core/queryOptions/queries";
+import { getCartItemsQueryOptions, ordersQueryOptions } from "../core/queryOptions/queries";
 import {  useRef } from "react";
 import Collapse from "bootstrap/js/dist/collapse";
+import { LoadingContext } from "../core/context/LoaderContext";
 
 function NavBar() {
     const { user } = useContext(UserContext);
     const { auth, loading} = useAuth();
+
     const sginedIn = !!user && !!auth.accessToken && !loading;
     const userId = user?.id;
     const navigate = useNavigate();
@@ -42,6 +44,8 @@ function NavBar() {
     };
     const { data: cartItems = []} = useQuery(getCartItemsQueryOptions(userId));
 
+    const { data } = useQuery(ordersQueryOptions(userId));
+    const orders = data?.orders ?? [];
     const collapseRef = useRef(null);
     const bsCollapse = useRef(null);
 
@@ -64,7 +68,7 @@ function NavBar() {
         miAxios.get("/api/geo").then(res => {
             setGeo(res.data);
         } 
-    ) 
+    )   
     }, []);
 
   
@@ -92,8 +96,13 @@ function NavBar() {
 
 
                         <NavLink to="/user/orders" className={({ isActive }) =>
-                            `nav-link text-decoration-none ${isActive ? "active" : ""}`}>
+                            `nav-link text-decoration-none position-relative ${isActive ? "active" : ""}`}>
                             Orders
+                            {orders.length > 0 && (
+                                <span className="position-absolute top-25 start-100 translate-middle p-1 bg__blue border border-light rounded-circle">
+                                    <span className="visually-hidden">New alerts</span>
+                                </span>
+                            )}
                         </NavLink>
                         <div className="nav-link text-decoration-none large__dropdown__toggle">
                             Menu
@@ -196,8 +205,8 @@ function NavBar() {
                         </span>
                         :   
                         <span className="ms-auto">
-                            <button onClick={() => navigate('/signIn')} className="btn__register rotating-border">Sign In
-                                <i className="bi bi-box-arrow-in-right i__replace"></i>
+                            <button onClick={() => navigate('/signIn')} className="btn__blue__full rotating-border">
+                            Sign In <i className="bi bi-box-arrow-in-right i__replace"></i>
                             </button>
                         </span>
                     }

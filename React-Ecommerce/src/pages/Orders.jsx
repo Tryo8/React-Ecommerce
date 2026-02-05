@@ -10,6 +10,7 @@ import { errorToast } from "../core/utils/errorToast";
 import { toast } from "sonner";
 import useAxiosPrivate from "../core/hooks/useAxiosPrivate";
 import Rate from "rc-rate";
+import DeliveryVan from "../uicomponents/DeliveryVan";
 
 
 export default function Orders () {
@@ -31,7 +32,6 @@ export default function Orders () {
     const { data: orders = [], isLoading,error, isError, refetch} = useQuery(ordersQueryOptions(userId));
   
     useEffect(() => {
-        console.log(orders)
         setLoading(isLoading);
     },[isLoading, setLoading]);
 
@@ -91,13 +91,18 @@ export default function Orders () {
     return(
         <div className="container my-4">
             <h5 ref={top} className="bg__light p-3 text-center rounded-4">Orders</h5>
+            {
+                orders?.length === 0 ? '' :
+                (<>
+                    <div className="bg__success text-center text-white txt__s">
+                Your Orders will Arrive In 1 Day</div>
+     
+                </>)
+            }
+            
             <div className="row justify-content-center gap-2 bg__light border-bottom rounded-4 mx-0 mt-3 p-3">
                 <p className="text-center txt__sm text-muted mt-2">orders marked as done will expire in 24 hours time.</p>
-                {
-                    orders?.length === 0 ? '' :
-                    <div className="bg__success text-center text-white txt__s">
-                    Your Will Order Arrives In 1 Day</div>
-                }
+             
                 {
                     orders?.length === 0 ? <EmptyState customImg={imgBox} message={"You have no orders"}/> :
                     orders.map((o) => (
@@ -160,7 +165,9 @@ export default function Orders () {
                 }
 
             </div>
-
+            <div className="mt-5">
+                <DeliveryVan/>
+            </div>
             
             <div className="modal" id="addReviewModal" tabIndex="-1" aria-labelledby="addReviewModal" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered justify-content-center">

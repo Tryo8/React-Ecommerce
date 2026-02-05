@@ -8,7 +8,7 @@ function PopoverSm ({ id, type, message, link, linkName, clickFn, cancelBtn}) {
     const error = 
         <div className="border-0" popover="auto" id={id} >
             <div id="op">
-                <div style={{width:'25rem'}} className=" border-start border-3 border-danger rounded-4 d-grid p-3 border-0 ">
+                <div  className="popover__box border-start border-3 border-danger rounded-4 d-grid p-3 border-0 ">
                     <p className="txt__s d-flex align-items-center mb-0">  
                         <i className="bi bi-exclamation-circle pop text-danger fs-3 me-2"></i>
                         {message}
@@ -28,7 +28,7 @@ function PopoverSm ({ id, type, message, link, linkName, clickFn, cancelBtn}) {
     const notification = 
         <div className="border-0" popover="auto" id={id} >
             <div id="op">
-                <div style={{width:'25rem'}} className="border-start border-3 border-primary rounded-4 d-grid p-3 border-0 ">
+                <div  className="popover__box border-start border-3 border-primary rounded-4 d-grid p-3 border-0 ">
                   
                     <p className="txt__s d-flex align-items-center mb-0">  
                         <i className="bi pop txt__blue bi-info-circle fs-3 me-2"></i>
@@ -40,7 +40,7 @@ function PopoverSm ({ id, type, message, link, linkName, clickFn, cancelBtn}) {
     const success = 
             <div className="border-0" popover="auto" id={id} >
                 <div id="op">
-                    <div style={{width:'25rem'}} className=" border-start border-3 border-success rounded-4 d-grid p-3 border-0 ">
+                    <div  className="popover__box border-start border-3 border-success rounded-4 d-grid p-3 border-0 ">
                     
                         <p className="txt__s d-flex align-items-center mb-0">  
                             <i className="bi bi-check-circle rotate__i me-2 text-success fs-3"></i>
@@ -67,7 +67,7 @@ function PopoverSm ({ id, type, message, link, linkName, clickFn, cancelBtn}) {
     return(
         <div className="border-0" popover="auto" id={id} >
             <div id="op">
-                <div style={{width:'25rem'}} className="card rounded-4 p-3 border-0">
+                <div  className="card rounded-4 p-3 border-0">
                     <button popoverTargetAction="hide" popoverTarget={id} className=" btn-close"></button>
                     <p className="txt__sm">This a popover made for notifications, warning, error..etc not ideal though</p>
                 </div>
